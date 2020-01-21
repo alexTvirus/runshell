@@ -36,7 +36,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import tqtk.Entity.SessionEntity;
+import tqtk.XuLy.login.LayThongTinSession;
 
 @RestController
 public class GreedingController {
@@ -49,10 +53,37 @@ public class GreedingController {
         count++;
         return count;
     }
-    
-     @RequestMapping(value = "/getcount", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/getcount", method = RequestMethod.GET)
     public int getcount() {
         return count;
+    }
+
+    @RequestMapping(value = "/starttqtk", method = RequestMethod.GET)
+    @ResponseBody
+    public String starttqtk() {
+        if (LayThongTinSession.getListSession().size() < 1) {
+            Thread t = new Thread() {
+                public void run() {
+                    tqtk.Tqtk.main();
+                }
+            };
+            t.start();
+        }
+
+        return "ok";
+    }
+
+    @RequestMapping(value = "/getinfotqtk", method = RequestMethod.GET)
+    @ResponseBody
+    public String getinfotqtk(@RequestParam(value = "key", required = true) String key) {
+        for (SessionEntity sessionEntity : LayThongTinSession.getListSession()) {
+            if (key.equals(sessionEntity.getUserId())) {
+                return sessionEntity.getMessage().toString();
+            }
+        }
+
+        return "ko thay";
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
