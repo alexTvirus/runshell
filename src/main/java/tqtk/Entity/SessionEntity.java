@@ -17,16 +17,43 @@ import java.net.Socket;
 public class SessionEntity {
 
     private String userId;
+    private String pass;
     private String ip;
     private int ports;
     private String sessionKey;
     private Socket socket;
     private boolean isConnected;
+    private String stringName;
+
+    public String getStringName() {
+        return stringName;
+    }
+
+    public void setStringName(String stringName) {
+        this.stringName = stringName;
+    }
+    
+    
+    public SessionEntity(String stringName, String pass) {
+        this.stringName = stringName;
+        this.pass = pass;
+    }
+
+    public SessionEntity() {
+    }
 
     public void resetSocket() throws IOException {
         this.socket.close();
         this.socket = new Socket();
         this.socket.connect(new InetSocketAddress(InetAddress.getByName(ip), ports), 7000);
+    }
+
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
     }
 
     public boolean isIsConnected() {

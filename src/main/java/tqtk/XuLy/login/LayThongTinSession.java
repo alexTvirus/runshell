@@ -24,31 +24,32 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import tqtk.Entity.SessionEntity;
+import static tqtk.Tqtk.sendMessage;
 
 /**
  *
  * @author Alex
  */
 public class LayThongTinSession {
-
+    
     private static List<SessionEntity> ListSession = new ArrayList<>();
-
-    public static SessionEntity getSessionEntity(String user, String pass, int id) throws Exception {
+    
+    public static synchronized SessionEntity getSessionEntity(String user, String pass, int id, Util u) throws Exception {
         // login va lay thong tin session
-        CookieManager msCookieManager = new CookieManager();
-        Util.setCookie(msCookieManager);
+        u.setCookie(u.msCookieManager);
         String urlWeb = "http://tamquoctruyenky.vn/auth/login";
-        String html = Util.getPageSource(urlWeb);
+        String html = u.getPageSource(urlWeb);
+        
         String token = Util.getToken(html);
         String refer = Util.getRefer(html);
 
-        html = Util.dangNhap(urlWeb, user, pass, token, refer);
+        html = u.dangNhap(urlWeb, user, pass, token, refer);
         urlWeb = "http://app.slg.vn/tamquoctruyenky/slg?server=" + id;
-        html = Util.getThongTinFrame(urlWeb);
-
+        html = u.getThongTinFrame(urlWeb);
+        
         String address = Util.getFrameString(html);
-        html = Util.getThongTinPort(address);
-
+        html = u.getThongTinPort(address);
+        
         String ip = Util.getInfoSocket(html, "ip");
         String ports = Util.getInfoSocket(html, "ports");
         String sessionKey = Util.getInfoSocket(html, "sessionKey");
@@ -58,11 +59,13 @@ public class LayThongTinSession {
         ss.setPorts(Integer.parseInt(ports));
         ss.setSessionKey(sessionKey);
         ss.setUserId(userID);
+        ss.setStringName(user);
+        u.setCookie(null);
         return ss;
     }
-
+    
     public static List<SessionEntity> getListSession() {
         return ListSession;
     }
-
+    
 }
