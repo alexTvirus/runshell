@@ -7,6 +7,9 @@ package tqtk.Utils;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.CookieHandler;
@@ -21,6 +24,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import javax.net.ssl.HttpsURLConnection;
 import org.apache.commons.lang3.StringUtils;
 import tqtk.Entity.SessionEntity;
@@ -31,37 +35,17 @@ import tqtk.Entity.SessionEntity;
  */
 public class Util {
 
-    public static CookieManager msCookieManager = null;
-    private static final String DATE_FORMAT = "dd-M-yyyy hh:mm a";
-    private static final SimpleDateFormat formatter = new SimpleDateFormat(DATE_FORMAT);
+    public CookieManager msCookieManager = null;
 
-    public static void setCookie(CookieManager msCookieManager) {
+    public Util() {
+        msCookieManager = new CookieManager();
+    }
+
+    public void setCookie(CookieManager msCookieManager) {
         CookieHandler.setDefault(msCookieManager);
     }
 
-    static {
-
-    }
-
-    public static String getCurrentDate() {
-        Date date = new Date();
-        return formatter.format(date);
-    }
-
-    public static String getCookie(HttpURLConnection con) {
-        List<String> cookiesHeader = (List) con.getHeaderFields().get("Set-Cookie");
-        if (cookiesHeader != null) {
-            for (String cookie : cookiesHeader) {
-                if (!cookie.isEmpty()) {
-                    msCookieManager.getCookieStore().add(null, (HttpCookie) HttpCookie.parse(cookie).get(0));
-                }
-            }
-        }
-        String StringCookies = StringUtils.join(msCookieManager.getCookieStore().getCookies(), ";");
-        return StringCookies;
-    }
-
-    public static String getPageSource(String url) throws Exception {
+    public String getPageSource(String url) throws Exception {
         HttpURLConnection con = null;
         try {
             URL obj = new URL(url);
@@ -143,7 +127,7 @@ public class Util {
         return result.replace("&amp;", "&");
     }
 
-    public static String dangNhap(String url, String user, String pass, String token, String Refer) throws Exception {
+    public String dangNhap(String url, String user, String pass, String token, String Refer) throws Exception {
         HttpURLConnection con = null;
         try {
             URL obj = new URL(Refer);
@@ -197,7 +181,7 @@ public class Util {
         }
     }
 
-    public static String getThongTinFrame(String url) throws Exception {
+    public String getThongTinFrame(String url) throws Exception {
         HttpURLConnection con = null;
         try {
             URL obj = new URL(url);
@@ -241,7 +225,7 @@ public class Util {
         }
     }
 
-    public static String getThongTinPort(String url) throws Exception {
+    public String getThongTinPort(String url) throws Exception {
         HttpURLConnection con = null;
         try {
             URL obj = new URL(url);
@@ -354,5 +338,22 @@ public class Util {
             builder.append(String.format("%02x", b));
         }
         return builder.toString();
+    }
+
+    public static Properties loadProperties(String file_name) {
+
+        final Properties pr = new Properties();
+        //window
+        //String x = "D:\\7-Project\\Java\\1. Netbean\\2. nghien-cuu\\New folder\\runshell\\"+file_name;
+        //heroku
+        String x = "/app/"+file_name;
+        try {
+            final InputStream fin = new FileInputStream(x);
+            pr.load(fin);
+            fin.close();
+        } catch (final IOException ioe) {
+            return null;
+        }
+        return pr;
     }
 }
