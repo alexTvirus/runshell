@@ -32,17 +32,16 @@ public class XuLyPacket {
             wr.flush();
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            if (e.getMessage().contains("socket write error")) {
-                ss.resetSocket();
-            }
+//            if (e.getMessage().contains("socket write error")) {
+            ss.resetSocket();
+//            }
         }
 
     }
 
     public static StringBuilder GuiPacket(SessionEntity ss, String code, List<String> list) throws UnknownHostException, IOException, InterruptedException {
         BufferedWriter wr = null;
-        StringBuilder rp = new StringBuilder();
-        rp.append(tqtk.Utils.Util.getCurrentDate());
+        StringBuilder rp = null;
         String message = "";
         try {
             message = Util.TaoMsg(code, list, ss);
@@ -51,34 +50,25 @@ public class XuLyPacket {
             wr.write(message);
             wr.flush();
 
+            rp = new StringBuilder("");
             if (ss.getSocket().isConnected()) {
-                try {
-                    Thread.sleep(3 * 1000);
-                    InputStream instr = ss.getSocket().getInputStream();
-                    int buffSize = ss.getSocket().getReceiveBufferSize();
-                    if (buffSize > 0) {
-                        byte[] buff = new byte[buffSize];
-                        int ret_read = instr.read(buff);
-                        if (ret_read != -1) {
-                            rp.append(new String(buff, 0, ret_read));
-                        }
+                Thread.sleep(3 * 1000);
+                InputStream instr = ss.getSocket().getInputStream();
+                int buffSize = ss.getSocket().getReceiveBufferSize();
+                if (buffSize > 0) {
+                    byte[] buff = new byte[buffSize];
+                    int ret_read = instr.read(buff);
+                    if (ret_read != -1) {
+                        rp.append(new String(buff, 0, ret_read));
                     }
-                } catch (IOException e) {
-                    rp.append("Exception while reading socket:" + e.getMessage());
                 }
-            } else {
-                ss.resetSocket();
             }
-
-            ss.setMessage(rp);
             return rp;
-
         } catch (Exception e) {
-            rp.append("Exception while reading socket:" + e.getMessage());
             System.out.println(e.getMessage());
-            if (e.getMessage().contains("socket write error")) {
-                ss.resetSocket();
-            }
+
+//            if (e.getMessage().contains("socket write error")) {
+//            }
             return null;
         }
 
