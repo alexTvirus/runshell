@@ -1,5 +1,4 @@
 package tqtk.XuLy;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
@@ -9,6 +8,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -44,8 +44,13 @@ public class Worker extends Thread {
         Thread.sleep(5000);
         GuiPacketKhongKQ(ss, "10100", null);
         // packet cap nhat thong tin lien tuc tu server
-//        Thread.sleep(5000);
-//        GuiPacketKhongKQ(ss, "11102", null);
+        Thread.sleep(5000);
+        GuiPacketKhongKQ(ss, "11102", null);
+        Thread.sleep(5000);
+        GuiPacketKhongKQ(ss, "12400", null);
+        Thread.sleep(5000);
+        GuiPacketKhongKQ(ss, "12200", null);
+
     }
 
     public void LuyenTuong() {
@@ -60,9 +65,19 @@ public class Worker extends Thread {
             StringBuilder rs1 = GuiPacket(ss, "41100", list1);
             if (rs1 != null) {
                 try {
+                    String[] temp = rs1.toString().split("");
+
                     ObjectMapper mapper = new ObjectMapper();
-                    Map<String, Object> carMap = mapper.readValue(rs1.toString(), new TypeReference<Map<String, Object>>() {
-                    });
+                    Map<String, Object> carMap = null;
+                    int h = 0;
+                    for (String string : temp) {
+                        carMap = mapper.readValue(string, new TypeReference<Map<String, Object>>() {
+                        });
+                        h = (int) carMap.get("h");
+                        if (h == Integer.parseInt("41100")) {
+                            break;
+                        }
+                    }
 
                     List<Object> carMap1 = (List<Object>) ((Map<String, Object>) carMap.get("m")).get("general");
                     int idhero = 0;
@@ -81,25 +96,37 @@ public class Worker extends Thread {
                         list1.set(0, Integer.toString(idhero));
                         list2.set(0, Integer.toString(idhero));
                         if (name != null) {
-                            if ("Hoa Hâm ".equals(name) && trainflag == 0) {
+                            if ("Gia Cát Khát ".equals(name) && trainflag == 0) {
                                 rs1 = GuiPacket(ss, "41101", list1);
                                 Thread.sleep(5000);
                                 rs1 = GuiPacket(ss, "41102", list2);
                                 Thread.sleep(5000);
 
-                            } else if ("Y Tịch ".equals(name) && trainflag == 0) {
+                            } else if ("Vu Chính ".equals(name) && trainflag == 0) {
                                 rs1 = GuiPacket(ss, "41101", list1);
                                 Thread.sleep(5000);
                                 rs1 = GuiPacket(ss, "41102", list2);
                                 Thread.sleep(5000);
 
-                            } else if ("Quách Gia ".equals(name) && trainflag == 0) {
+                            } else if ("Kha Ti Năng ".equals(name) && trainflag == 0) {
+                                rs1 = GuiPacket(ss, "41101", list1);
+                                Thread.sleep(5000);
+                                rs1 = GuiPacket(ss, "41102", list2);
+                                Thread.sleep(5000);
+
+                            } else if ("Phan Lâm ".equals(name) && trainflag == 0) {
                                 rs1 = GuiPacket(ss, "41101", list1);
                                 Thread.sleep(5000);
                                 rs1 = GuiPacket(ss, "41102", list2);
                                 Thread.sleep(5000);
 
                             } else if ("Tào Tháo ".equals(name) && trainflag == 0) {
+                                rs1 = GuiPacket(ss, "41101", list1);
+                                Thread.sleep(5000);
+                                rs1 = GuiPacket(ss, "41102", list2);
+                                Thread.sleep(5000);
+
+                            } else if ("Chân Cơ ".equals(name) && trainflag == 0) {
                                 rs1 = GuiPacket(ss, "41101", list1);
                                 Thread.sleep(5000);
                                 rs1 = GuiPacket(ss, "41102", list2);
@@ -132,9 +159,19 @@ public class Worker extends Thread {
             StringBuilder rs1 = GuiPacket(ss, "60605", null);
             if (rs1 != null) {
                 try {
+                    String[] temp = rs1.toString().split("");
+
                     ObjectMapper mapper = new ObjectMapper();
-                    Map<String, Object> carMap = mapper.readValue(rs1.toString(), new TypeReference<Map<String, Object>>() {
-                    });
+                    Map<String, Object> carMap = null;
+                    int h = 0;
+                    for (String string : temp) {
+                        carMap = mapper.readValue(string, new TypeReference<Map<String, Object>>() {
+                        });
+                        h = (int) carMap.get("h");
+                        if (h == Integer.parseInt("60605")) {
+                            break;
+                        }
+                    }
 
                     List<Object> carMap1 = (List<Object>) ((Map<String, Object>) carMap.get("m")).get("wantedMemberList");
                     int idarea = 0;
@@ -207,6 +244,30 @@ public class Worker extends Thread {
             list1.set(0, "5");
             Thread.sleep(5000);
             rs1 = GuiPacket(ss, "12100", list1);
+            // nang cua tiem
+            list1.set(0, "7");
+            Thread.sleep(5000);
+            rs1 = GuiPacket(ss, "12100", list1);
+            // nang cua tiem
+            list1.set(0, "8");
+            Thread.sleep(5000);
+            rs1 = GuiPacket(ss, "12100", list1);
+            // nang cua tiem
+            list1.set(0, "9");
+            Thread.sleep(5000);
+            rs1 = GuiPacket(ss, "12100", list1);
+            // nang cua tiem
+            list1.set(0, "10");
+            Thread.sleep(5000);
+            rs1 = GuiPacket(ss, "12100", list1);
+            // nang cua tiem
+            list1.set(0, "12");
+            Thread.sleep(5000);
+            rs1 = GuiPacket(ss, "12100", list1);
+            // nang cua tiem
+            list1.set(0, "13");
+            Thread.sleep(5000);
+            rs1 = GuiPacket(ss, "12100", list1);
 
         } catch (Exception e) {
             System.out.println("NangNha " + ss.getStringName() + e.getMessage());
@@ -253,6 +314,54 @@ public class Worker extends Thread {
             list1.set(0, "11");
             Thread.sleep(5000);
             rs1 = GuiPacket(ss, "42200", list1);
+            //  phong thi , 42200 ,5
+            list1.set(0, "10");
+            Thread.sleep(5000);
+            rs1 = GuiPacket(ss, "42200", list1);
+            //  phong thi , 42200 ,5
+            list1.set(0, "12");
+            Thread.sleep(5000);
+            rs1 = GuiPacket(ss, "42200", list1);
+            //  phong thi , 42200 ,5
+            list1.set(0, "13");
+            Thread.sleep(5000);
+            rs1 = GuiPacket(ss, "42200", list1);
+            //  phong thi , 42200 ,5
+            list1.set(0, "14");
+            Thread.sleep(5000);
+            rs1 = GuiPacket(ss, "42200", list1);
+            //  phong thi , 42200 ,5
+            list1.set(0, "15");
+            Thread.sleep(5000);
+            rs1 = GuiPacket(ss, "42200", list1);
+            //  phong thi , 42200 ,5
+            list1.set(0, "16");
+            Thread.sleep(5000);
+            rs1 = GuiPacket(ss, "42200", list1);
+            //  phong thi , 42200 ,5
+            list1.set(0, "17");
+            Thread.sleep(5000);
+            rs1 = GuiPacket(ss, "42200", list1);
+            //  phong thi , 42200 ,5
+            list1.set(0, "18");
+            Thread.sleep(5000);
+            rs1 = GuiPacket(ss, "42200", list1);
+            //  phong thi , 42200 ,5
+            list1.set(0, "19");
+            Thread.sleep(5000);
+            rs1 = GuiPacket(ss, "42200", list1);
+            //  phong thi , 42200 ,5
+            list1.set(0, "20");
+            Thread.sleep(5000);
+            rs1 = GuiPacket(ss, "42200", list1);
+            //  phong thi , 42200 ,5
+            list1.set(0, "21");
+            Thread.sleep(5000);
+            rs1 = GuiPacket(ss, "42200", list1);
+            //  phong thi , 42200 ,5
+            list1.set(0, "22");
+            Thread.sleep(5000);
+            rs1 = GuiPacket(ss, "42200", list1);
         } catch (Exception e) {
             System.out.println("NangKiNang " + ss.getStringName() + e.getMessage());
         }
@@ -262,14 +371,26 @@ public class Worker extends Thread {
         List<String> list1 = new ArrayList<>();
         try {
             StringBuilder rs1 = GuiPacket(ss, "14101", null);
+
+            String[] temp = rs1.toString().split("");
+
             ObjectMapper mapper = new ObjectMapper();
-            Map<String, Object> carMap = mapper.readValue(rs1.toString(), new TypeReference<Map<String, Object>>() {
-            });
+            Map<String, Object> carMap = null;
+            int h = 0;
+            for (String string : temp) {
+                carMap = mapper.readValue(string, new TypeReference<Map<String, Object>>() {
+                });
+                h = (int) carMap.get("h");
+                if (h == Integer.parseInt("14101")) {
+                    break;
+                }
+            }
+
             double tile = (double) ((Map<String, Object>) carMap.get("m")).get("recruits");
             int max = (int) ((Map<String, Object>) carMap.get("m")).get("forcemax");
-            max = max/3;
-            list1.add(0, Integer.toString((int)max));
-            list1.add(1, Integer.toString((int)Math.round(max * tile)));
+            max = max / 3;
+            list1.add(0, Integer.toString((int) max));
+            list1.add(1, Integer.toString((int) Math.round(max * tile)));
             Thread.sleep(5000);
             rs1 = GuiPacket(ss, "14102", list1);
             Tqtk.sendMessage("mualinh " + ss.getStringName());
@@ -294,9 +415,19 @@ public class Worker extends Thread {
             Thread.sleep(5000);
             if (rs1 != null) {
                 try {
+                    String[] temp = rs1.toString().split("");
+
                     ObjectMapper mapper = new ObjectMapper();
-                    Map<String, Object> carMap = mapper.readValue(rs1.toString(), new TypeReference<Map<String, Object>>() {
-                    });
+                    Map<String, Object> carMap = null;
+                    int h = 0;
+                    for (String string : temp) {
+                        carMap = mapper.readValue(string, new TypeReference<Map<String, Object>>() {
+                        });
+                        h = (int) carMap.get("h");
+                        if (h == Integer.parseInt("34100")) {
+                            break;
+                        }
+                    }
 
                     List<Object> carMap1 = (List<Object>) ((Map<String, Object>) carMap.get("m")).get("team");
                     long idhero = 0;
@@ -325,6 +456,325 @@ public class Worker extends Thread {
 
         }
     }
+	
+	public void DanhQuanDoan1() {
+		if(ss!=null && ss.getStringName().equals("hacklslol7@gmail.com")){
+        // danh quan doan duong binh
+        List<String> list1 = new ArrayList<>();
+        list1.add(0, "900016");
+        List<String> list2 = new ArrayList<>();
+        list2.add(0, "0");
+
+        try {
+            StringBuilder rs1 = GuiPacket(ss, "34100", list1);
+            Thread.sleep(5000);
+            if (rs1 != null) {
+                try {
+                    String[] temp = rs1.toString().split("");
+
+                    ObjectMapper mapper = new ObjectMapper();
+                    Map<String, Object> carMap = null;
+                    int h = 0;
+                    for (String string : temp) {
+                        carMap = mapper.readValue(string, new TypeReference<Map<String, Object>>() {
+                        });
+                        h = (int) carMap.get("h");
+                        if (h == Integer.parseInt("34100")) {
+                            break;
+                        }
+                    }
+
+                    List<Object> carMap1 = (List<Object>) ((Map<String, Object>) carMap.get("m")).get("team");
+                    long idhero = 0;
+
+                    Tqtk.sendMessage("qd " + ss.getStringName());
+
+                    if (carMap1 != null && carMap1.size() > 0) {
+                        Object object = carMap1.get(0);
+                        idhero = (long) ((Map<Object, Object>) object).get("teamid");
+                        list2.set(0, Long.toString(idhero));
+
+                        rs1 = GuiPacket(ss, "34102", list2);
+                        Thread.sleep(5000);
+                    }
+                } catch (Exception e) {
+                    throw new JsonException();
+                }
+
+            }
+        } catch (Exception ex) {
+            if (!(ex instanceof JsonException)) {
+                System.out.println("loi qd " + ss.getStringName() + ex.getMessage());
+            } else {
+                System.out.println("loi qd json" + ss.getStringName() + ex.getMessage());
+            }
+
+        }
+		}
+    }
+	
+	public void DanhQuanDoan2() {
+	
+		if(ss!=null && ss.getStringName().equals("hacklslol7@gmail.com")){
+			 // danh quan doan duong binh
+        List<String> list1 = new ArrayList<>();
+        list1.add(0, "900015");
+        List<String> list2 = new ArrayList<>();
+        list2.add(0, "0");
+
+        try {
+            StringBuilder rs1 = GuiPacket(ss, "34100", list1);
+            Thread.sleep(5000);
+            if (rs1 != null) {
+                try {
+                    String[] temp = rs1.toString().split("");
+
+                    ObjectMapper mapper = new ObjectMapper();
+                    Map<String, Object> carMap = null;
+                    int h = 0;
+                    for (String string : temp) {
+                        carMap = mapper.readValue(string, new TypeReference<Map<String, Object>>() {
+                        });
+                        h = (int) carMap.get("h");
+                        if (h == Integer.parseInt("34100")) {
+                            break;
+                        }
+                    }
+
+                    List<Object> carMap1 = (List<Object>) ((Map<String, Object>) carMap.get("m")).get("team");
+                    long idhero = 0;
+
+                    Tqtk.sendMessage("qd " + ss.getStringName());
+
+                    if (carMap1 != null && carMap1.size() > 0) {
+                        Object object = carMap1.get(0);
+                        idhero = (long) ((Map<Object, Object>) object).get("teamid");
+                        list2.set(0, Long.toString(idhero));
+
+                        rs1 = GuiPacket(ss, "34102", list2);
+                        Thread.sleep(5000);
+                    }
+                } catch (Exception e) {
+                    throw new JsonException();
+                }
+
+            }
+        } catch (Exception ex) {
+            if (!(ex instanceof JsonException)) {
+                System.out.println("loi qd " + ss.getStringName() + ex.getMessage());
+            } else {
+                System.out.println("loi qd json" + ss.getStringName() + ex.getMessage());
+            }
+
+        }
+			
+		}
+       
+    }
+	
+	public void DanhQuanDoan3() {
+	
+		if(ss!=null && !ss.getStringName().equals("hacklslol7@gmail.com")){
+			 // danh quan doan duong binh
+        List<String> list1 = new ArrayList<>();
+        list1.add(0, "900011");
+        List<String> list2 = new ArrayList<>();
+        list2.add(0, "0");
+
+        try {
+            StringBuilder rs1 = GuiPacket(ss, "34100", list1);
+            Thread.sleep(5000);
+            if (rs1 != null) {
+                try {
+                    String[] temp = rs1.toString().split("");
+
+                    ObjectMapper mapper = new ObjectMapper();
+                    Map<String, Object> carMap = null;
+                    int h = 0;
+                    for (String string : temp) {
+                        carMap = mapper.readValue(string, new TypeReference<Map<String, Object>>() {
+                        });
+                        h = (int) carMap.get("h");
+                        if (h == Integer.parseInt("34100")) {
+                            break;
+                        }
+                    }
+
+                    List<Object> carMap1 = (List<Object>) ((Map<String, Object>) carMap.get("m")).get("team");
+                    long idhero = 0;
+
+                    Tqtk.sendMessage("qd " + ss.getStringName());
+
+                    if (carMap1 != null && carMap1.size() > 0) {
+                        Object object = carMap1.get(0);
+                        idhero = (long) ((Map<Object, Object>) object).get("teamid");
+                        list2.set(0, Long.toString(idhero));
+
+                        rs1 = GuiPacket(ss, "34102", list2);
+                        Thread.sleep(5000);
+                    }
+                } catch (Exception e) {
+                    throw new JsonException();
+                }
+
+            }
+        } catch (Exception ex) {
+            if (!(ex instanceof JsonException)) {
+                System.out.println("loi qd " + ss.getStringName() + ex.getMessage());
+            } else {
+                System.out.println("loi qd json" + ss.getStringName() + ex.getMessage());
+            }
+
+        }
+			
+		}
+       
+    }
+
+    public void ThuThue() {
+        // danh quan doan vu van thi toc
+        List<String> list1 = new ArrayList<>();
+        list1.add(0, "0");
+        list1.add(1, "0");
+        List<String> list2 = new ArrayList<>();
+        list2.add(0, "0");
+
+        try {
+            StringBuilder rs1 = GuiPacket(ss, "12401", list1);
+            Thread.sleep(5000);
+            if (rs1 != null) {
+                try {
+                    String[] temp = rs1.toString().split("");
+
+                    ObjectMapper mapper = new ObjectMapper();
+                    Map<String, Object> carMap = null;
+                    int h = 0;
+                    for (String string : temp) {
+                        carMap = mapper.readValue(string, new TypeReference<Map<String, Object>>() {
+                        });
+                        h = (int) carMap.get("h");
+                        if (h == Integer.parseInt("12401")) {
+                            break;
+                        }
+                    }
+
+                    Map<String, Object> carMap1 = (Map<String, Object>) ((Map<String, Object>) carMap.get("m")).get("larrydto");
+
+                    Tqtk.sendMessage("thuthue " + ss.getStringName());
+
+                    if (carMap1 != null) {
+                        String optdisc1 = (String) carMap1.get("optdisc1");
+                        String optdisc2 = (String) carMap1.get("optdisc2");
+
+                        List<String> cauhoi = Util.docFileCauHoiThuThue("thu_thue_dan_tam.txt");
+
+                        for (String item : cauhoi) {
+                            if (optdisc1.contains(item)) {
+                                list2.set(0, "1");
+                                rs1 = GuiPacket(ss, "12406", list2);
+                                Thread.sleep(5000);
+                                break;
+                            } else if (optdisc2.contains(item)) {
+                                list2.set(0, "2");
+                                rs1 = GuiPacket(ss, "12406", list2);
+                                Thread.sleep(5000);
+                                break;
+                            } else {
+                                list2.set(0, "1");
+                                rs1 = GuiPacket(ss, "12406", list2);
+                                Thread.sleep(5000);
+                                break;
+                            }
+                        }
+
+                    }
+                } catch (Exception e) {
+                    throw new JsonException();
+                }
+
+            }
+        } catch (Exception ex) {
+            if (!(ex instanceof JsonException)) {
+                System.out.println("loi qd " + ss.getStringName() + ex.getMessage());
+            } else {
+                System.out.println("loi qd json" + ss.getStringName() + ex.getMessage());
+            }
+
+        }
+    }
+
+    public void ChiemRuong() {
+        // danh quan doan vu van thi toc
+        List<String> list1 = new ArrayList<>();
+        List<String> list2 = new ArrayList<>();
+        list2.add(0, "0");
+
+        try {
+            StringBuilder rs1 = GuiPacket(ss, "31103", null);
+            Thread.sleep(5000);
+            if (rs1 != null) {
+                try {
+                    String[] temp = rs1.toString().split("");
+
+                    ObjectMapper mapper = new ObjectMapper();
+                    Map<String, Object> carMap = null;
+                    int h = 0;
+                    for (String string : temp) {
+                        carMap = mapper.readValue(string, new TypeReference<Map<String, Object>>() {
+                        });
+                        h = (int) carMap.get("h");
+                        if (h == Integer.parseInt("31103")) {
+                            break;
+                        }
+                    }
+                    synchronized (tqtk.Tqtk.listruong) {
+                        tqtk.Tqtk.listruong = (List<Object>) ((Map<String, Object>) carMap.get("m")).get("resource");
+
+                        Tqtk.sendMessage("chiem ruong " + ss.getStringName());
+                        Object playerId = 0;
+                        int resourceid = 0;
+                        if (tqtk.Tqtk.listruong != null) {
+                            for (Object object : tqtk.Tqtk.listruong) {
+                                playerId = ((Map<Object, Object>) object).get("playerid");
+                                resourceid = (int) ((Map<Object, Object>) object).get("resourceid");
+                                if (playerId instanceof Integer) {
+                                    break;
+                                }
+                            }
+                        }
+                        list2.set(0, Integer.toString(resourceid));
+                        rs1 = GuiPacket(ss, "31104", list2);
+                        Thread.sleep(5000);
+                    }
+                } catch (Exception e) {
+                    throw new JsonException();
+                }
+
+            }
+        } catch (Exception ex) {
+            if (!(ex instanceof JsonException)) {
+                System.out.println("loi qd " + ss.getStringName() + ex.getMessage());
+            } else {
+                System.out.println("loi qd json" + ss.getStringName() + ex.getMessage());
+            }
+
+        }
+    }
+
+    public void FarmDo() {
+        // danh dong do na
+        List<String> list1 = new ArrayList<>();
+        list1.add(0, "2114");
+        list1.add(1, "0");
+
+        try {
+            StringBuilder rs1 = GuiPacket(ss, "33101", list1);
+            Thread.sleep(5000);
+
+        } catch (Exception ex) {
+            System.out.println("loi FarmDo " + ss.getStringName() + ex.getMessage());
+        }
+    }
 
     public void NangItem() throws IOException, UnknownHostException, InterruptedException, Exception {
         List<String> list1 = new ArrayList<>();
@@ -336,9 +786,19 @@ public class Worker extends Thread {
             StringBuilder rs1 = GuiPacket(ss, "39301", list1);
             if (rs1 != null && rs1.toString() != "") {
                 try {
+                    String[] temp = rs1.toString().split("");
+
                     ObjectMapper mapper = new ObjectMapper();
-                    Map<String, Object> carMap = mapper.readValue(rs1.toString(), new TypeReference<Map<String, Object>>() {
-                    });
+                    Map<String, Object> carMap = null;
+                    int h = 0;
+                    for (String string : temp) {
+                        carMap = mapper.readValue(string, new TypeReference<Map<String, Object>>() {
+                        });
+                        h = (int) carMap.get("h");
+                        if (h == Integer.parseInt("39301")) {
+                            break;
+                        }
+                    }
                     List<Object> carMap1 = (List<Object>) ((Map<String, Object>) carMap.get("m")).get("equip");
                     Object Magic = (Object) ((Map<String, Object>) carMap.get("m")).get("magic");
                     int Upgradecdusable = (int) ((Map<String, Object>) carMap.get("m")).get("upgradecdusable");
@@ -356,7 +816,7 @@ public class Worker extends Thread {
                         list1.set(0, Integer.toString(storeid));
                         list1.set(2, Magic.toString());
                         if (generalname != null) {
-                            if ((int) Magic > 80 && "Hoa Hâm ".equals(generalname)) {
+                            if ((int) Magic > 87 && "Hoa Hâm ".equals(generalname)) {
                                 rs1 = GuiPacket(ss, "39302", list1);
                                 Thread.sleep(5000);
                             }
@@ -441,14 +901,20 @@ public class Worker extends Thread {
             GuiPacketDeLogin();
 
             while (true) {
+
                 MuaLinh();
-                DanhQuanDoan();
+//                DanhQuanDoan1();
+//				DanhQuanDoan2();
+//				DanhQuanDoan3();
 //                NangItem();
 //                TruyNa();
-//              LuyenTuong();
+                LuyenTuong();
 //                NangNha();
-//              NangKiNang();
-             GianKhoan();
+//                NangKiNang();
+                GianKhoan();
+//                FarmDo();
+//                ThuThue();
+                ChiemRuong();
                 Thread.sleep(55 * 1000);
             }
         } catch (Exception ex) {

@@ -29,9 +29,11 @@ import tqtk.XuLy.login.LayThongTinSession;
 public class Tqtk {
 
     public static List<String> loaiTruyna = new ArrayList<>();
+    public static List<Object> listruong = new ArrayList<>();
 
     static {
         loaiTruyna = Collections.synchronizedList(loaiTruyna);
+        listruong = Collections.synchronizedList(listruong);
     }
 
     public static void main() {

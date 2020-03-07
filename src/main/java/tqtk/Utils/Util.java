@@ -344,9 +344,9 @@ public class Util {
 
         final Properties pr = new Properties();
         //window
-        //String x = "D:\\7-Project\\Java\\1. Netbean\\2. nghien-cuu\\New folder\\runshell\\"+file_name;
+//        String x = "D:\\7-Project\\Java\\1. Netbean\\2. nghien-cuu\\TQTK\\runshell\\"+file_name;
         //heroku
-        String x = "/app/"+file_name;
+        String x = "/app/" + file_name;
         try {
             final InputStream fin = new FileInputStream(x);
             pr.load(fin);
@@ -355,5 +355,19 @@ public class Util {
             return null;
         }
         return pr;
+    }
+
+    public static List<String> docFileCauHoiThuThue(String file_name) {
+
+        final Properties pr = new Properties();
+        //window
+//        String x = "D:\\7-Project\\Java\\1. Netbean\\2. nghien-cuu\\TQTK\\runshell\\cauhoi\\"+file_name;
+        //heroku
+        String x = "/app/cauhoi/" + file_name;
+        try {
+            return Doc_file_kieu_txt.readFile(x);
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

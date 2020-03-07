@@ -49,6 +49,7 @@ public class XuLyPacket {
             wr = new BufferedWriter(new OutputStreamWriter(ss.getSocket().getOutputStream(), "UTF8"));
             wr.write(message);
             wr.flush();
+
             rp = new StringBuilder("");
             if (ss.getSocket().isConnected()) {
                 Thread.sleep(3 * 1000);
@@ -65,6 +66,7 @@ public class XuLyPacket {
             return rp;
         } catch (Exception e) {
             System.out.println(e.getMessage());
+
 //            if (e.getMessage().contains("socket write error")) {
 //            }
             return null;
