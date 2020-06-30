@@ -133,7 +133,13 @@ public class Worker extends Thread {
                                 rs1 = GuiPacket(ss, "41102", list2);
                                 Thread.sleep(5000);
 
-                            }else if ("Thái Diễm ".equals(name) && trainflag == 0) {
+                            } else if ("Thái Diễm ".equals(name) && trainflag == 0) {
+                                rs1 = GuiPacket(ss, "41101", list1);
+                                Thread.sleep(5000);
+                                rs1 = GuiPacket(ss, "41102", list2);
+                                Thread.sleep(5000);
+
+                            } else if ("Tư Mã Chiêu ".equals(name) && trainflag == 0) {
                                 rs1 = GuiPacket(ss, "41101", list1);
                                 Thread.sleep(5000);
                                 rs1 = GuiPacket(ss, "41102", list2);
@@ -275,12 +281,16 @@ public class Worker extends Thread {
             list1.set(0, "13");
             Thread.sleep(5000);
             rs1 = GuiPacket(ss, "12100", list1);
-			// nang cua tiem
+            // nang cua tiem
             list1.set(0, "25");
             Thread.sleep(5000);
             rs1 = GuiPacket(ss, "12100", list1);
-			// nang cua tiem
+            // nang cua tiem
             list1.set(0, "23");
+            Thread.sleep(5000);
+            rs1 = GuiPacket(ss, "12100", list1);
+
+            list1.set(0, "24");
             Thread.sleep(5000);
             rs1 = GuiPacket(ss, "12100", list1);
 
@@ -377,15 +387,15 @@ public class Worker extends Thread {
             list1.set(0, "22");
             Thread.sleep(5000);
             rs1 = GuiPacket(ss, "42200", list1);
-			//  phong thi , 42200 ,5
+            //  phong thi , 42200 ,5
             list1.set(0, "23");
             Thread.sleep(5000);
             rs1 = GuiPacket(ss, "42200", list1);
-			//  phong thi , 42200 ,5
+            //  phong thi , 42200 ,5
             list1.set(0, "24");
             Thread.sleep(5000);
             rs1 = GuiPacket(ss, "42200", list1);
-			//  phong thi , 42200 ,5
+            //  phong thi , 42200 ,5
             list1.set(0, "25");
             Thread.sleep(5000);
             rs1 = GuiPacket(ss, "42200", list1);
@@ -603,7 +613,7 @@ public class Worker extends Thread {
 
     public void DanhQuanDoan3() {
 
-        if ((ss != null && ss.getStringName().contains("@gmail.com") && !ss.getStringName().equals("hacklslol7@gmail.com"))||ss != null && ss.getStringName().contains("itf.edu.vn")) {
+        if ((ss != null && ss.getStringName().contains("@gmail.com") && !ss.getStringName().equals("hacklslol7@gmail.com")) || ss != null && ss.getStringName().contains("itf.edu.vn")) {
             // danh quan doan duong binh
             List<String> list1 = new ArrayList<>();
             list1.add(0, "900013");
@@ -791,7 +801,7 @@ public class Worker extends Thread {
     }
 
     public void FarmDo() {
-        if ( false && ss != null && ss.getStringName().equals("hacklslol7@gmail.com")) {
+        if (false && ss != null && ss.getStringName().equals("hacklslol7@gmail.com")) {
             // danh map ngo
             List<String> list1 = new ArrayList<>();
             list1.add(0, "2817");
@@ -813,9 +823,9 @@ public class Worker extends Thread {
             try {
                 StringBuilder rs1 = GuiPacket(ss, "33101", list1);
                 Thread.sleep(5000);
-				list1.set(0, "2529");
-				GuiPacket(ss, "33101", list1);
-				Thread.sleep(5000);
+                list1.set(0, "2529");
+                GuiPacket(ss, "33101", list1);
+                Thread.sleep(5000);
 
             } catch (Exception ex) {
                 System.out.println("loi FarmDo " + ss.getStringName() + ex.getMessage());
@@ -864,23 +874,25 @@ public class Worker extends Thread {
                         list1.set(0, Integer.toString(storeid));
                         list1.set(2, Magic.toString());
                         if (generalname != null) {
-                            if ((int) Magic > 87 && "Hoa Hâm ".equals(generalname) && lv <= 80) {
+							if (!(ss != null && ss.getStringName().equals("hacklslol7@gmail.com"))) {
+								if ((int) Magic > 87 && "Hoa Hâm ".equals(generalname)) {
                                 rs1 = GuiPacket(ss, "39302", list1);
                                 Thread.sleep(5000);
                             } else if (Upgradecdusable == 1 && (int) Magic > 87 && "Chân Cơ ".equals(generalname) && lv <= 80) {
                                 rs1 = GuiPacket(ss, "39302", list1);
                                 Thread.sleep(5000);
-                            } //                            else if (Upgradecdusable == 1 && (int) Magic > 70 && "Dương Tu ".equals(generalname)) {
-                            //                                rs1 = GuiPacket(ss, "39302", list1);
-                            //                                Thread.sleep(5000);
-                            //                            } else if (Upgradecdusable == 1 && (int) Magic > 70 && "Y Tịch ".equals(generalname)) {
-                            //                                rs1 = GuiPacket(ss, "39302", list1);
-                            //                                Thread.sleep(5000);
-                            //                            } 
-                            else if (Upgradecdusable == 1 && (int) Magic > 87 && "Lưu Biểu ".equals(generalname) && lv <= 80) {
+                            } else if (Upgradecdusable == 1 && (int) Magic > 87 && "Dương Tu ".equals(generalname) && lv <= 80) {
+                                rs1 = GuiPacket(ss, "39302", list1);
+                                Thread.sleep(5000);
+                            } else if (Upgradecdusable == 1 && (int) Magic > 87 && "Y Tịch ".equals(generalname) && lv <= 80) {
+                                rs1 = GuiPacket(ss, "39302", list1);
+                                Thread.sleep(5000);
+                            } else if (Upgradecdusable == 1 && (int) Magic > 87 && "Lưu Biểu ".equals(generalname) && lv <= 80) {
                                 rs1 = GuiPacket(ss, "39302", list1);
                                 Thread.sleep(5000);
                             }
+							}
+                            
                         }
                     }
                 } catch (Exception e) {
@@ -930,17 +942,17 @@ public class Worker extends Thread {
             System.out.println(ex.getMessage());
         }
     }
-	
-	public void CapNhatThongTin() {
-   
+
+    public void CapNhatThongTin() {
+
         try {
             // packet cap nhat thong tin lien tuc tu server
-        Thread.sleep(5000);
-        GuiPacketKhongKQ(ss, "11102", null);
-        Thread.sleep(5000);
-        GuiPacketKhongKQ(ss, "12400", null);
-        Thread.sleep(5000);
-        GuiPacketKhongKQ(ss, "12200", null);
+            Thread.sleep(5000);
+            GuiPacketKhongKQ(ss, "11102", null);
+            Thread.sleep(5000);
+            GuiPacketKhongKQ(ss, "12400", null);
+            Thread.sleep(5000);
+            GuiPacketKhongKQ(ss, "12200", null);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
@@ -978,7 +990,7 @@ public class Worker extends Thread {
                 //FarmDo();
                 ThuThue();
                 ChiemRuong();
-				CapNhatThongTin();
+                CapNhatThongTin();
                 Thread.sleep(55 * 1000);
             }
         } catch (Exception ex) {
